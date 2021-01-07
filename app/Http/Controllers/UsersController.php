@@ -30,13 +30,13 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(UserRequest $request,ImageUploadHandler $uploader, User $user)
+    public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
         $data = $request->all();
 
-        if($request->avatar){
-            $result = $uploader->save($request->avatar,'avatar',$user->id);
-            if($result){
+        if ($request->avatar) {
+            $result = $uploader->save($request->avatar, 'avatar', $user->id, 300);
+            if ($result) {
                 $data['avatar'] = $result['path'];
             }
         }
