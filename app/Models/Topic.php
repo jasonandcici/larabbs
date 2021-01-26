@@ -47,4 +47,10 @@ class Topic extends Model
         //按创造时间排序
         return $query->orderBy('created_at', 'desc');
     }
+
+    public function saving(Topic $topic)
+    {
+        $topic->body = clean($topic->body, 'user_topic_body');
+        $topic->excerpt = make_excerpt($topic->body);
+    }
 }
