@@ -6,7 +6,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 /* Topic Index Page */
-.topics-index-page, .categories-show-page {
+.topics-index-page, .categories-show-page, .root-page {
   .topic-list {
     .nav > li > a {
       position: relative;
@@ -46,7 +46,7 @@
   margin-bottom: 100px;
 }
 
-.simditor-body img{
+.simditor-body img {
   max-width: 100%;
 }
 
