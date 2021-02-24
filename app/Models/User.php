@@ -18,7 +18,24 @@ class User extends Authenticatable implements MustVerifyEmailContract
         notify as protected laravelNotify;
     }
 
-    use Traits\ActiveUserHelper;
+    use Traits\ActiveUserHelper, Traits\LastActivedAtHelper;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'introduction',
+        'avatar'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     public function notify($instance)
     {
@@ -42,23 +59,6 @@ class User extends Authenticatable implements MustVerifyEmailContract
         $this->save();
         $this->unreadNotifications()->markAsRead();
     }
-
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'introduction',
-        'avatar'
-    ];
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 
     public function setPasswordAttribute($value)
     {
