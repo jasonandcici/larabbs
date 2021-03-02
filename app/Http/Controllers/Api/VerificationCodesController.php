@@ -32,7 +32,7 @@ class VerificationCodesController extends Controller
                 abort(500, $message ?: '短信发送异常');
             }
         }
-        
+
         $key = 'verificationCode_' . Str::random(15);
         $expiredAt = now()->addMinutes(5);
 
