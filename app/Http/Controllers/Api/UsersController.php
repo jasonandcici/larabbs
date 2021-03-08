@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
@@ -30,6 +31,23 @@ class UsersController extends Controller
         ]);
 
         \Cache::forget($request->verification_key);
+
+        return (new UserResource($user))->showSensitiveFields();
+    }
+
+    public function update(UserRequest $request)
+    {
+        $user = $request->user();
+
+        $attributes = $request->only(['name', 'email', 'introduction']);
+
+        if ($request->avatar_image_id) {
+            $image = Image::find($request->avatar_image_id);
+
+            $attributes['avatar'] = $image->path;
+        }
+
+        $user->update($attributes);
 
         return (new UserResource($user))->showSensitiveFields();
     }
