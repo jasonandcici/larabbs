@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Topic extends Model
 {
@@ -51,6 +52,14 @@ class Topic extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return QueryBuilder::for(self::class)
+            ->allowedIncludes('user', 'category')
+            ->where($this->getRouteKeyName(), $value)
+            ->first();
     }
 
 }
