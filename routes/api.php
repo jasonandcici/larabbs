@@ -67,6 +67,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
             Route::get('topics/{topic}/relies', 'RepliesController@index')->name('topics.replies.index');
             //某个用户的回复列表
             Route::get('users/{user}/replies', 'RepliesController@userIndex')->name('users.replies.index');
+            //通知列表
+            Route::get('notifications', 'NotificationsController@index')->name('notifications.index');
         });
     });
 
